@@ -52,14 +52,7 @@
 #     ro_community => 'public',
 #   }
 #
-# === Authors:
-#
-# Mike Arnold <mike@razorsedge.org>
-#
-# === Copyright:
-#
-# Copyright (C) 2012 Mike Arnold, unless otherwise noted.
-#
+# FIXME: This needs a serious rewrite.
 class snmp::trapd (
   $ro_community       = $snmp::params::ro_community,
   $rw_community       = $snmp::params::rw_community,

@@ -1,0 +1,16 @@
+
+# Commands section
+# == Retrieved from <%= @template_path %>
+
+<% if classes.include? 'exim' -%>
+# Exim mail queue count. Get the value at 1.3.6.1.4.1.29324.3.1.10.11.3.1.1.0
+extend .1.3.6.1.4.1.29324.3.1.10.11 "" /usr/sbin/exim -bpc
+<% end -%>
+
+<% if scope['::cpanel'] -%>
+# Bind stats.
+# .1.3.6.1.4.1.29324.3.1.10.12.4.1.2.0.1 till .1.3.6.1.4.1.29324.3.1.10.12.4.1.2.0.6
+extend .1.3.6.1.4.1.29324.3.1.10.12 "" /usr/local/bin/bind_stats.sh
+<% end -%>
+
+# END

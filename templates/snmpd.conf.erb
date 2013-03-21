@@ -1,24 +1,15 @@
-###
-### File managed by Puppet
-###
+<%= scope.lookupvar('global::puppet_banner_sh') %>
 
-#rocommunity <%= scope.lookupvar('snmp::server::ro_community') %> <%= scope.lookupvar('snmp::server::ro_network') %>
-#rwcommunity <%= scope.lookupvar('snmp::server::rw_community') %> <%= scope.lookupvar('snmp::server::rw_network') %>
-#sysservices 76
+# Main snmpd config section
+# == Retrieved from <%= @template_path %>
 
-com2sec notConfigUser  default       <%= scope.lookupvar('snmp::server::ro_community') %>
-
-group   notConfigGroup v1            notConfigUser
-group   notConfigGroup v2c           notConfigUser
-
-<% Array(visible_oids).each do |oid| -%>
-view    systemview    included   <%= oid %>
-<% end -%>
-
-access  notConfigGroup ""      any       noauth    exact  systemview none none
-
-syslocation <%= scope.lookupvar('snmp::server::location') %>
-syscontact <%= scope.lookupvar('snmp::server::contact') %>
-
+# -----------------------------------------------------------------------------
+# General settings
 dontLogTCPWrappersConnects yes
+
+# -----------------------------------------------------------------------------
+# System contact information
+#
+syslocation <%= scope.lookupvar('snmp::daemon::location') %>
+syscontact <%= scope.lookupvar('snmp::daemon::contact') %>
 

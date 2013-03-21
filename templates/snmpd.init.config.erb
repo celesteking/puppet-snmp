@@ -1,0 +1,9 @@
+<%= scope.lookupvar('global::puppet_banner_sh') %>
+# == Retrieved from <%= @template_path %>
+<% 
+	txt = scope.lookupvar('snmp::daemon::service_start_opts') 
+	if txt and not txt.empty?
+-%>
+# snmpd command line options
+<%= txt %>
+<% end -%>

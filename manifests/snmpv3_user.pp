@@ -1,3 +1,5 @@
+# FIXME: Reimplement this as a type
+
 # == Definition: snmp::snmpv3_user
 #
 # This definition creates a SNMPv3 user.
@@ -40,13 +42,6 @@
 #     privpass => '5678priv',
 #   }
 #
-# === Authors:
-#
-# Mike Arnold <mike@razorsedge.org>
-#
-# === Copyright:
-#
-# Copyright (C) 2012 Mike Arnold, unless otherwise noted.
 #
 define snmp::snmpv3_user (
   $authpass,

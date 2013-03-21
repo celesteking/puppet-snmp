@@ -1,7 +1,9 @@
 Puppet SNMP Module
 ==================
 
-[![Build Status](https://secure.travis-ci.org/razorsedge/puppet-snmp.png?branch=master)](http://travis-ci.org/razorsedge/puppet-snmp)
+[![Build Status](https://secure.travis-ci.org/celesteking/puppet-snmp.png?branch=master)](http://travis-ci.org/celesteking/puppet-snmp)
+
+*NOTE*: this is work in progress, it might not work.
 
 Introduction
 ------------
@@ -27,12 +29,22 @@ OS Support:
 
 Class documentation is available via puppetdoc.
 
+VACM support
+------------
+Module supports VACM management via the following defines that resemble correspondingly named directives:
+* snmp::daemon::acl::view
+* snmp::daemon::acl::group
+* snmp::daemon::acl::com2sec
+* snmp::daemon::acl::access
+
+`snmp::daemon::acl::defaults` class is auto-included to define a special "fullro" USM user that has RO access to every OID.  
+
 Examples
 --------
 
     class { 'snmp': }
 
-    class { 'snmp::server':
+    class { 'snmp::daemon':
       ro_community => 'notpublic',
       ro_network   => '10.20.30.40/32',
       contact      => 'root@yourdomain.org',
@@ -48,17 +60,4 @@ Examples
       privpass => '5678priv',
     }
 
-Notes
------
 
-* Only tested on CentOS 5.8 and CentOS 6.2 x86_64.
-
-Issues
-------
-
-* None.
-
-Copyright
----------
-
-Copyright (C) 2012 Mike Arnold <mike@razorsedge.org>

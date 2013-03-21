@@ -1,0 +1,38 @@
+<%
+	rocomm = scope.lookupvar('snmp::daemon::ro_community')
+	rocomm_networks = [scope.lookupvar('snmp::daemon::ro_networks')].flatten
+-%>
+
+# VACM section
+# == Retrieved from <%= @template_path %>
+
+#
+# view name incl/excl subtree mask(optional)
+# com2sec secname source community
+# group name model secname 
+# access  group context sec.model sec.level  match   read    write   notif
+#
+  
+<% [scope.lookupvar('snmp::params::system_view_oids')].flatten.each do |oid| -%>
+view	systemview	included	<%= oid %>
+<% end -%>
+
+<% if rocomm -%>
+# RO secname
+<% rocomm_networks.each do |rocomm_network| -%>
+com2sec rocomm_user <%= rocomm_network %> <%= rocomm %>
+<% end -%>
+
+# RO community group
+group rocomm_group v2c rocomm_user
+<% end -%>
+
+<% if rocomm -%>
+# RO community access map
+access rocomm_group "" v2c noauth exact systemview none none
+<% end -%>
+
+<%# Allow legacy access statements. Please use snmp::daemon::acl::[access,group,com2sec] for that. -%>
+<% scope.lookupvar('snmp::daemon::accesses').each do |access| %>
+<%= access %>
+<% end %>
